@@ -141,6 +141,17 @@ namespace {
 
 void setup()
 {
+    // Holding both side buttons while plugging in USB reboots into the UF2 bootloader (BOOTSEL),
+    // so the firmware can be updated without opening the enclosure.
+    // Checked before any USB/peripheral init. The running both-button long press (calibration) is unaffected.
+    // From https://github.com/sb-ocr/cad-mouse-mk2/pull/41
+    pinMode(PIN_LEFT_BTN, INPUT_PULLUP);
+    pinMode(PIN_RIGHT_BTN, INPUT_PULLUP);
+    delay(5); // Let the pull-ups charge the button lines before sampling
+    if (digitalRead(PIN_LEFT_BTN) == LOW && digitalRead(PIN_RIGHT_BTN) == LOW) {
+        rp2040.rebootToBootloader();
+    }
+
     PowerManager::begin();
 
     Serial.begin(115200);

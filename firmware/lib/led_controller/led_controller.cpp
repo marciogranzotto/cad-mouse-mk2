@@ -77,7 +77,7 @@ LEDController::LEDController(uint8_t pin_ls, uint8_t pin_data, uint8_t num_leds)
 
 void LEDController::begin()
 {
-    digitalWrite(m_pinLS, LOW);
+    digitalWrite(m_pinLS, LOAD_SWITCH_OFF);
     pinMode(m_pinLS, OUTPUT);
     digitalWrite(m_pinData, LOW);
 
@@ -100,7 +100,7 @@ void LEDController::begin()
 void LEDController::on()
 {
     m_fade_active = false;
-    digitalWrite(m_pinLS, HIGH);
+    digitalWrite(m_pinLS, LOAD_SWITCH_ON);
     m_last_update_time_ms = 0; // Reset so that when turned back on, the animation starts fresh
     m_current_state.on = true; // Update the permanent state to reflect that the LEDs are on
     delay(10);                 // Wait for the latch signal to stabilize
@@ -109,7 +109,7 @@ void LEDController::on()
 void LEDController::off()
 {
     m_fade_active = false;
-    digitalWrite(m_pinLS, LOW);
+    digitalWrite(m_pinLS, LOAD_SWITCH_OFF);
     m_last_update_time_ms = 0;  // Reset so that when turned back on, the animation starts fresh
     m_current_state.on = false; // Update the permanent state to reflect that the LEDs are off
     delay(10);                  // Wait for the latch signal to stabilize

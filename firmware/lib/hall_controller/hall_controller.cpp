@@ -22,7 +22,7 @@ void HallSensorController::begin()
     pinMode(m_sensor2PowerPin, OUTPUT);
     pinMode(m_sensor3PowerPin, OUTPUT);
 
-    // All pins of initially set to LOW to power off the sensors
+    // Power off all sensors initially
     powerOff(m_sensor1PowerPin);
     powerOff(m_sensor2PowerPin);
     powerOff(m_sensor3PowerPin);
@@ -93,12 +93,12 @@ bool HallSensorController::setPowerMode(TLx493D_PowerModeType_t mode)
 
 void HallSensorController::powerOff(uint8_t pin)
 {
-    digitalWrite(pin, LOW);
+    digitalWrite(pin, LOAD_SWITCH_OFF);
 }
 
 void HallSensorController::powerOn(uint8_t pin)
 {
-    digitalWrite(pin, HIGH);
+    digitalWrite(pin, LOAD_SWITCH_ON);
     delay(5);
 }
 

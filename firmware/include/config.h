@@ -14,6 +14,20 @@
 #define PIN_MAG2_LS D9
 #define PIN_MAG3_LS D8
 
+// Enable polarity of the AP22816 load switches on the *_LS pins (LEDs and hall sensors).
+// AP22816A* parts are active-high (EN), AP22816B* parts are active-low (EN#).
+// The upstream BOM lists the A variant; set to 0 if your board is fitted with B parts.
+// See https://github.com/sb-ocr/cad-mouse-mk2/issues/5 and /issues/31.
+#define LOAD_SWITCH_ACTIVE_HIGH 1
+
+#if LOAD_SWITCH_ACTIVE_HIGH
+#define LOAD_SWITCH_ON HIGH
+#define LOAD_SWITCH_OFF LOW
+#else
+#define LOAD_SWITCH_ON LOW
+#define LOAD_SWITCH_OFF HIGH
+#endif
+
 // =============================================================================
 // VISUALS
 // LED colors, brightness, input glow, and power-transition effects.
